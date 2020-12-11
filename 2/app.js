@@ -1,6 +1,6 @@
 var items = [
   {
-    name: '鉛筆',
+    name: 'ペン',
     price: 300,
     quantity: 1
   },
