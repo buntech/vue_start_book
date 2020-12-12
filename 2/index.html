@@ -6,15 +6,24 @@
   <p>{{ message }}</p>
 
   <ul>
-    <li v-for="item in items" v-:key="item.name">
-      <p>{{ item.name }}: {{ item.quantity }}
-        = {{ item.price * item.quantity | numberWithDelimiter }} 円</p>
+    <!-- v-on:change ならinput要素のフォーカスが外れた時に更新 -->
+    <li v-for="item in items" :key="item.name">
+      <!-- v-onディレクティブ イベントハンドリング -->
+      <!-- {{ item.name }}の個数: <input type="number" @input="item.quantity = $event.target.value" v-bind="item.quantity" min="0"> -->
+      <!-- v-model フォーム入力バインディング -->
+      {{ item.name }}の個数：<input type="number" v-model="item.quantity" min="0">
+    </li>
+  </ul>
+  <hr>
+  <ul>
+    <li v-for="item in items" :key="item.name">
+      <p>{{item.name}}：{{item.price * item.quantity}}円 ✕ {{ item.quantity }} = {{ item.price * item.quantity | numberWithDelimiter }}円</p>
     </li>
   </ul>
 
   <!-- <p>フィルタ処理 {{ 1000 | numberWithDelimiter }}</p> -->
-  <p>合計: {{ totalPrice | numberWithDelimiter}}</p>
-  <p>合計(税込み): {{ totalPriceWithTax | numberWithDelimiter }} </p>
+  <p>合計: {{ totalPrice | numberWithDelimiter}}円</p>
+  <p>合計(税込み): {{ totalPriceWithTax | numberWithDelimiter }}円</p>
 
   <!-- 属性値に応じて、表示を出し分け -->
   <!-- 条件付きレンダリング & クラス・スタイルバインディング -->
@@ -23,6 +32,7 @@
   </p>
 </div>
 
-<button id="b-button" v-bind:title="loggedInButton" v-bind:disabled="!canBuy">購入</button>
+<!-- v-bindは省略可 -->
+<button id="b-button" v-bind:title="loggedInButton" :disabled="!canBuy">購入</button>
 
 <script src="app.js"></script>
